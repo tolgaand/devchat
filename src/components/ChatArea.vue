@@ -1,28 +1,17 @@
 <script>
+import { mapState } from 'vuex'
+import messages from '~/assets/data/messages'
+
 export default {
   data() {
     return {
       message: '',
-      currentUserId: 123,
-      messages: [
-        {
-          author: {
-            id: 1231,
-            name: 'Tolga',
-          },
-          content:
-            'lorem imasşld kaşld kaşlds kaşls kdşlsa kdşlsakd şlaskd şlkdsal ajslkdjqoıwdjıasjdoajdsoıasjd ıasjd oasjd asd lkasjd lkasd şaskd şlaskd lsadkqowkşalskdsalşdkasşlk',
-        },
-        {
-          author: {
-            id: 1231,
-            name: 'Tolga',
-          },
-          content:
-            'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        },
-      ],
+      messages,
     }
+  },
+  computed: {
+    ...mapState('user', ['user']),
+    ...mapState('settings', ['currentChannel']),
   },
   watch: {
     messages() {
@@ -37,8 +26,11 @@ export default {
     sendMessage() {
       this.messages.push({
         author: {
-          id: this.currentUserId,
-          name: 'Buğrahan',
+          id: this.user.id,
+          name: this.user.name,
+          surname: this.user.surname,
+          username: this.user.username,
+          avatarUrl: this.user.avatarUrl,
         },
         content: this.message,
       })
@@ -53,19 +45,27 @@ export default {
     .area__header
         .header__icon
             i.bx.bxs-hand
-        .header__title Backend Developers
-        .header__description This is backend developers chat area.
+        .header__title {{ currentChannel.name }}
+        .header__description {{ currentChannel.description }}
     .area__content
-        .content__messages
-            .message(v-for="(message, index) in messages" :key="index" :class="{'message-me': currentUserId == message.author.id }")
+        .content__messages(v-if="currentChannel.id != -1")
+            .message(v-for="(message, index) in messages"  :key="index" :class="{'message-me': user.id == message.author.id }")
                 .message__user-avatar
                     vs-avatar(primary badge badge-color="success")
-                        i.bx.bxs-hot
+                      img(:src="message.author.avatarUrl" v-if="message.author.avatarUrl")
+                      i.bx.bxs-hot(v-else)
                 .message__information
                     p.message__user-name {{ message.author.name }} 
                     p.message__content {{ message.content }}
-
-    .area__footer
+        .content__messages(v-else)
+          .message
+            .message__user-avatar
+                  vs-avatar(history)
+                    i.bx.bxs-hot
+            .message__information
+                p.message__user-name DevBot
+                p.message__content Lütfen bir kanal seçiniz!
+    .area__footer(v-if="currentChannel.id != -1")
         vs-input.message__input(placeholder="Enter a message..." v-model="message" icon-after @keyup.enter="sendMessage")
           template(#icon)
             i.bx.bx-send(@click="sendMessage")
