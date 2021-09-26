@@ -1,20 +1,43 @@
 <script>
-export default {}
+import { mapState, mapMutations } from 'vuex'
+
+export default {
+  data() {
+    return {
+      activeTab: '',
+    }
+  },
+  computed: {
+    ...mapState('user', ['user']),
+    ...mapState('settings', ['channels', 'activeChannelId']),
+  },
+  watch: {
+    activeTab(val) {
+      const id = val.split('-')[1]
+      this.setActiveChannelId(id)
+    },
+  },
+  methods: {
+    ...mapMutations('settings', ['setActiveChannelId']),
+  },
+}
 </script>
 
 <template lang="pug">
-vs-sidebar(relative open square)    
+vs-sidebar(relative open square v-model="activeTab")    
     template(#header)
         .sidebar__search-bar
-            vs-input(danger icon-after placeholder="Danger")
+            vs-input(danger icon-after placeholder="Enter a search key.")
                 template(#icon)
                     i.bx.bx-search-alt
-        .sidebar__user-area
-            vs-avatar(primary badge badge-color="success")
-                i.bx.bxs-hot
+        .sidebar__user-area 
+            vs-avatar(primary badge badge-color="success" )
+                img(:src="user.avatarUrl" v-if="user.avatarUrl")
+                i.bx.bxs-hot(v-else)
             .user-information
-                h3 Buğrahan
-    vs-sidebar-item
+                h3 {{ user.name }} {{ user.surname }}
+                h6 {{ user.username }}
+    vs-sidebar-item(id="all-updates")
         template(#icon)
             i.bx.bx-history
         | All Updates
@@ -34,21 +57,11 @@ vs-sidebar(relative open square)
                 template
                 | Channel
         template
-            vs-sidebar-item
-                template(#icon)
-                    i.bx.bx-cloud
-                template
-                | General Chat
-            vs-sidebar-item
-                template(#icon)
-                    i.bx.bxl-nodejs
-                template
-                | Backend Chat
-            vs-sidebar-item
-                template(#icon)
-                    i.bx.bxl-vuejs
-                template
-                | Frontend Chat
+            vs-sidebar-item(v-for="channel in channels" :id="`channel-${channel.id}`" :key="channel.id")
+                template(#icon v-if="channel.icon")
+                    i(:class="channel.icon")
+                template {{ channel.name }}
+           
 
 </template>
 
