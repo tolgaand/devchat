@@ -25,6 +25,10 @@ export default {
 
 <template lang="pug">
 vs-sidebar(relative open square v-model="activeTab")    
+
+    template(#logo)
+      img(src="~/assets/images/devchat-logo.png")
+    template
     template(#header)
         .sidebar__search-bar
             vs-input(danger icon-after placeholder="Enter a search key.")
@@ -36,7 +40,7 @@ vs-sidebar(relative open square v-model="activeTab")
                 i.bx.bxs-hot(v-else)
             .user-information
                 h3 {{ user.name }} {{ user.surname }}
-                h6 {{ user.username }}
+                h6 {{ user.username }}    
     vs-sidebar-item(id="all-updates")
         template(#icon)
             i.bx.bx-history
@@ -49,6 +53,7 @@ vs-sidebar(relative open square v-model="activeTab")
         template(#icon)
             i.bx.bx-cog
         | Settings
+
     vs-sidebar-group(open)
         template(#header)
             vs-sidebar-item(arrow)
@@ -61,7 +66,23 @@ vs-sidebar(relative open square v-model="activeTab")
                 template(#icon v-if="channel.icon")
                     i(:class="channel.icon")
                 template {{ channel.name }}
-           
+        template
+        template
+    vs-sidebar-group
+
+      template
+        vs-card(type="2")
+          template(#img)
+            img(src="~/assets/images/devchat-logo-2.png")
+          template
+      template
+    template(#footer)
+      div
+        |powered by thebozturk & tolgaand
+      div
+    template
+          
+
 
 </template>
 
@@ -85,8 +106,16 @@ vs-sidebar(relative open square v-model="activeTab")
 }
 
 .vs-sidebar__item__text {
-  color: #afb2b3;
-  font-weight: 400;
+  white-space: nowrap;
+  display: inline-block;
+  overflow: hidden;
+  z-index: 10;
+  box-sizing: border-box !important;
+  color: rgba(var(--vs-text), 1);
+  font-size: 0.9rem;
+  font-weight: 700;
+  font-family: Poppins, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
+    Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
 .vs-sidebar__item__icon {
@@ -96,5 +125,19 @@ vs-sidebar(relative open square v-model="activeTab")
   max-width: 100%;
   width: 100%;
   height: 100vh !important;
+}
+
+.vs-sidebar-content .vs-sidebar__logo img {
+  max-width: 60% !important;
+  max-height: 100px !important;
+}
+.vs-sidebar-content .vs-sidebar__footer {
+  box-sizing: border-box !important;
+  color: #a7a3a3;
+  justify-content: center;
+  font-size: 0.7rem;
+  font-weight: 600;
+  @import url('https://fonts.googleapis.com/css2?family=Gemunu+Libre&display=swap');
+  font-family: 'Gemunu Libre', sans-serif;
 }
 </style>
