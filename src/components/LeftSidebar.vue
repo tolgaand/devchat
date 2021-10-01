@@ -1,5 +1,5 @@
 <script>
-import { mapState, mapMutations } from 'vuex'
+import { mapState, mapMutations, mapActions } from 'vuex'
 
 export default {
   data() {
@@ -19,6 +19,7 @@ export default {
   },
   methods: {
     ...mapMutations('settings', ['setActiveChannelId']),
+    ...mapActions('user', ['login', 'logout']),
   },
 }
 </script>
@@ -31,16 +32,21 @@ vs-sidebar(relative open square v-model="activeTab")
     template
     template(#header)
         .sidebar__search-bar
-            vs-input(danger icon-after placeholder="Enter a search key.")
+            vs-input(danger icon-after placeholder="Enter a search key." @click="login")
                 template(#icon)
                     i.bx.bx-search-alt
-        .sidebar__user-area 
-            vs-avatar(primary badge badge-color="success" )
-                img(:src="user.avatarUrl" v-if="user.avatarUrl")
+        .sidebar__user-area(v-if="user")
+            vs-avatar(badge badge-color="success" )
+                img(:src="user.photoUrl" v-if="user.photoUrl")
                 i.bx.bxs-hot(v-else)
             .user-information
-                h3 {{ user.name }} {{ user.surname }}
-                h6 {{ user.username }}    
+                h3 {{ user.displayName }}
+                h6 {{ user.screenName }}
+            .user-buttons
+              vs-button(gradient dark animation-type="scale" block @click="logout")
+                i.bx.bxs-log-out-circle
+                template(#animate)
+                 | Logout
     vs-sidebar-item(id="all-updates")
         template(#icon)
             i.bx.bx-history
