@@ -49,7 +49,7 @@ export default {
         .header__description {{ currentChannel.description }}
     .area__content
         .content__messages(v-if="currentChannel.id != -1")
-            .message(v-for="(message, index) in messages"  :key="index" :class="{'message-me': user.id == message.author.id }")
+            .message(v-for="(message, index) in messages" :key="index" :class="{'message-me': user && user.uid == message.author.id }")
                 .message__user-avatar
                     vs-avatar(primary badge badge-color="success")
                       img(:src="message.author.avatarUrl" v-if="message.author.avatarUrl")
