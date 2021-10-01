@@ -25,7 +25,7 @@ export default {
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: ['@/plugins/theme', '@/plugins/vuesax'],
+  plugins: ['@/plugins/theme', '@/plugins/vuesax', '@/plugins/firestore'],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
@@ -47,4 +47,21 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
+
+  loading: '~/components/LoadingBar',
+
+  router: {
+    prefetchLinks: false,
+    middleware: ['auth'],
+  },
+
+  env: {
+    apiKey: process.env.GOOGLE_API_KEY,
+    authDomain: process.env.GOOGLE_AUTH_DOMAIN,
+    projectId: process.env.GOOGLE_PROJECT_ID,
+    storageBucket: process.env.GOOGLE_STORAGE_BUCKET,
+    messagingSenderId: process.env.GOOGLE_MESSAGING_SENDER_ID,
+    appId: process.env.GOOGLE_APP_ID,
+    measurementId: process.env.GOOGLE_MEASUREMENT_ID,
+  },
 }
