@@ -1,15 +1,36 @@
 const user = {
   namespaced: true,
   state: () => ({
-    user: {
-      id: 0,
-      name: 'Tolga',
-      surname: 'Çağlayan',
-      username: 'tolgaand',
-      avatarUrl:
-        'https://media-exp1.licdn.com/dms/image/C4D03AQGAySSfaE56MA/profile-displayphoto-shrink_200_200/0/1618134844892?e=1638403200&v=beta&t=FPwWn0moNGEHa4PKHRRASEYqsy2oPH4fZwqC2mIuUkU',
-    },
+    user: null,
   }),
+  mutations: {
+    setUser(state, value) {
+      state.user = value
+    },
+  },
+  actions: {
+    login({ commit }) {
+      this.$githubLoginPopup()
+        .then((result) => {
+          const { token, user } = result
+
+          localStorage.setItem('token', token)
+          commit('setUser', user)
+        })
+        .catch((error) => {
+          if (error) localStorage.setItem('token', '')
+        })
+    },
+    async logout({ commit }) {
+      try {
+        await this.$githubLogout()
+        localStorage.setItem('token', '')
+        commit('setUser', null)
+      } catch (error) {
+        console.log(error)
+      }
+    },
+  },
 }
 
 export default user
