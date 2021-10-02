@@ -32,7 +32,7 @@ vs-sidebar(relative open square v-model="activeTab")
     template
     template(#header)
         .sidebar__search-bar
-            vs-input(danger icon-after placeholder="Enter a search key." @click="login")
+            vs-input(danger icon-after placeholder="Enter a search key.")
                 template(#icon)
                     i.bx.bx-search-alt
         .sidebar__user-area(v-if="user")
@@ -43,7 +43,7 @@ vs-sidebar(relative open square v-model="activeTab")
                 h3 {{ user.displayName }}
                 h6 {{ user.screenName }}
             .user-buttons
-              vs-button(gradient dark animation-type="scale" block @click="logout")
+              vs-button.btn.logout-btn(v-if="user" gradient dark animation-type="scale" block @click="logout")
                 i.bx.bxs-log-out-circle
                 template(#animate)
                  | Logout
@@ -79,14 +79,27 @@ vs-sidebar(relative open square v-model="activeTab")
       template
         vs-card(type="2")
           template(#img)
-            img(src="~/assets/images/devchat-logo-2.png")
+            img(src="~/assets/images/devchat-logo.png")
           template
       template
     template(#footer)
-      div
-        |powered by thebozturk & tolgaand
-      div
+      p
+        | powered by 
+        a(href="https://github.com/thebozturk" target="_blank") thebozturk
+        |  & 
+        a(href="https://github.com/tolgaand" target="_blank") tolgaand
+      p
     template
+    template(#footer)
+      vs-button.btn.login-btn(v-if="!user" gradient dark animation-type="scale" badge-position="top-right" block @click="login")
+        i.bx.bxs-log-in-circle
+        template(#animate)
+          | login
+        template
+    template
+
+ 
+    
           
 
 
@@ -145,5 +158,31 @@ vs-sidebar(relative open square v-model="activeTab")
   font-weight: 600;
   @import url('https://fonts.googleapis.com/css2?family=Gemunu+Libre&display=swap');
   font-family: 'Gemunu Libre', sans-serif;
+}
+
+.input,
+textarea,
+button,
+select,
+a {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  text-decoration: none;
+  color: white;
+}
+.btn {
+  padding: var(--vs-button-padding);
+  display: flex;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.login-btn {
+  width: 100%;
+}
+.logout-btn {
+  width: 70px;
+  height: 35px;
 }
 </style>
