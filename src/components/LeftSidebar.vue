@@ -28,7 +28,7 @@ export default {
 vs-sidebar(relative open square v-model="activeTab")    
 
     template(#logo)
-      img(src="~/assets/images/devchat-logo.png")
+      img(src="~/assets/images/ChatUp-logos-3.png")
     template
     template(#header)
         .sidebar__search-bar
