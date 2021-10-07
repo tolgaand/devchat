@@ -10,23 +10,13 @@ export default {
 </script>
 
 <template lang="pug"> 
-section.home
-  header
-    vs-navbar(text-white center-collapsed)
-      template(#left)
-        NuxtLink(to="/") ChatUp.
-      template(#right)
-        vs-navbar-item
-          a(href="https://github.com/thebozturk/devchat" target="__blank")
-            i.bx.bxl-github 
-  main
-    vs-row(justify="center" align="center")
-      vs-col.left-col(sm="12" lg="6")
-        LeftBackgroundImage.left-background
-      vs-col.right-col(sm="12" lg="6")
-        h1.chatup__title CHATUP
-        p.chatup__description meeting point for developers
-        p.chatup__cooming cooming soon!
+  vs-row(justify="center" align="center")
+    vs-col.left-col(sm="12" lg="6")
+      LeftBackgroundImage.left-background
+    vs-col.right-col(sm="12" lg="6")
+      h1.chatup__title CHATUP
+      p.chatup__description meeting point for developers
+      p.chatup__cooming cooming soon!
 </template>
 
 <style lang="scss">
@@ -47,26 +37,9 @@ body {
     #000040
   );
 }
+</style>
 
-#__nuxt,
-#__layout,
-.home,
-.vs-row,
-main {
-  height: 100%;
-}
-
-header {
-  .vs-navbar-content {
-    background: transparent;
-    .vs-navbar__right {
-      .vs-navbar__item {
-        font-size: 30px;
-      }
-    }
-  }
-}
-
+<style lang="scss" scoped>
 .left-background {
   position: relative;
   width: 70%;

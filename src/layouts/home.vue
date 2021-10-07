@@ -3,7 +3,16 @@ export default {}
 </script>
 
 <template lang="pug">
-Nuxt
+section.home
+  header
+    Header
+  main
+    Nuxt
 </template>
 
-<style></style>
+<style lang="scss">
+.vs-navbar-content {
+  background: transparent;
+  color: white;
+}
+</style>

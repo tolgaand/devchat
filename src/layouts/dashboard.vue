@@ -3,11 +3,21 @@ export default {}
 </script>
 
 <template lang="pug">
-vs-row.chat
-  vs-col(xs="12" lg="3")
+section.home
+  header 
+    Header
+  main
     LeftSidebar
-  vs-col(xs="12" lg="9") 
-    Nuxt
+    .content
+      Nuxt  
 </template>
 
-<style></style>
+<style lang="scss" scoped>
+header {
+  .vs-navbar-content {
+    background: #0e0e0e;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+}
+</style>
