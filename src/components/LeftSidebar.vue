@@ -1,5 +1,5 @@
 <template lang="pug">
-vs-sidebar(absolute open="active" square)
+vs-sidebar(relative open="active" square)
     template(#logo)
         NuxtLink(to="#") ChatUp.
     NuxtLink.menu-item(to="/channels")
